@@ -64,7 +64,7 @@ def upload_file():
             return jsonify({'error': 'No file uploaded'}), 400
 
         file = request.files['file']
-        
+
         # ✅ Check if the filename is empty
         if file.filename == '':
             return jsonify({'error': 'No selected file'}), 400

@@ -1,15 +1,19 @@
 from google.cloud import vision
-import os
+
+from service_account_loader import load_service_account
+
+# credentials = load_service_account()
+# print(credentials)
+
+# from google.cloud import vision
 
 def extract_text_from_image(image_path):
     """
     Extracts text along with spaces and formatting from an image.
     """
-    # Set the path to your service account key file
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "service-account.json"
-
-    # Initialize Vision API client
-    client = vision.ImageAnnotatorClient()
+    credentials = load_service_account()
+    client = vision.ImageAnnotatorClient(credentials=credentials)
+    print(client)
 
     # Load the image
     with open(image_path, "rb") as image_file:
@@ -58,7 +62,7 @@ def extract_text_from_image(image_path):
 if __name__ == "__main__":
     # Path to your image
     image_path = "sample.jpg"
-    
+
     # Extract and print text
     text = extract_text_from_image(image_path)
     print("Extracted Text:")
@@ -128,7 +132,7 @@ if __name__ == "__main__":
 # if __name__ == "__main__":
 #     # Path to your image
 #     image_path = "sample.jpg"
-    
+
 #     # Extract and print text
 #     text = extract_text_from_image(image_path)
 #     print("Extracted Text:")
@@ -160,17 +164,17 @@ if __name__ == "__main__":
 #     """
 #     # Load the image using OpenCV
 #     image = cv2.imread(image_path)
-    
+
 #     # Convert to grayscale
 #     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    
+
 #     # Apply binary thresholding
 #     _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
-    
+
 #     # Save the processed image temporarily
 #     processed_path = "processed_image.jpg"
 #     cv2.imwrite(processed_path, thresh)
-    
+
 #     return processed_path
 
 # def extract_text_with_formatting(image_path):
@@ -179,22 +183,22 @@ if __name__ == "__main__":
 #     """
 #     # Preprocess the image for better OCR
 #     processed_image_path = preprocess_image(image_path)
-    
+
 #     # Load the processed image with PIL
 #     image = Image.open(processed_image_path)
-    
+
 #     # Perform OCR
 #     text = pytesseract.image_to_string(image)
-    
+
 #     # Clean up the temporary processed image
 #     os.remove(processed_image_path)
-    
+
 #     return text
 
 # if __name__ == "__main__":
 #     # Input image path
 #     image_path = "sample.jpg"  # Replace with your image file path
-    
+
 #     # Check if the image file exists
 #     if not os.path.exists(image_path):
 #         print(f"Image file '{image_path}' not found.")

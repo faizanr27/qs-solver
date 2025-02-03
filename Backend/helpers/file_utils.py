@@ -14,18 +14,32 @@ def save_output_to_pdf(text, output_path):
         pdf.add_page()
 
         # Get absolute path of the font file
-        font_path = os.path.abspath("/home/tusxr/Tusar/question-paper-solver/dejavu-sans/DejaVuSans.ttf")
+        font_path = os.path.abspath("/home/faizan-raza/Documents/qs-solver/Backend/fonts/DejaVuSans.ttf")
+        print(type(font_path))
 
+        if not os.path.exists(font_path):
+            raise FileNotFoundError(f"Font file not found: {font_path}")
+
+        print("Font file exists!")
+
+        print("reaccched")
         # Use a font that supports Unicode (TTF)
-        pdf.add_font("DejaVuSans", "", font_path, uni=True)  # Load the Unicode font
+        try:
+            pdf.add_font("DejaVuSans", "", font_path, uni=True)
+            print("Font added successfully!")
+        except Exception as e:
+            print(f"Error adding font: {e}")
+            raise  # Re-raise the exception to stop execution
         pdf.set_font("DejaVuSans", size=12)
-
+        print("reaccched2")
         # Add text to the PDF, handling line breaks
         for line in text.split("\n"):
             pdf.multi_cell(0, 10, line)
+            # print("Line added to PDF.")
 
         # Save the PDF
         pdf.output(output_path)
+        print(f"PDF saved successfully at {output_path}")
     except Exception as e:
         print(f"Error generating PDF: {e}")
 
@@ -36,13 +50,13 @@ def extract_text_from_pdf(pdf_path):
     try:
         reader = PdfReader(pdf_path)
         plain_text = "".join(page.extract_text() + "\n" for page in reader.pages if page.extract_text())
-        
+
         if plain_text.strip():
             return plain_text
-        
+
         images = convert_from_path(pdf_path)
         ocr_text = "\n".join(extract_text_from_image(image) for image in images)
-        
+
         return ocr_text.strip()
     except Exception as e:
         print(f"Error reading PDF: {e}")
