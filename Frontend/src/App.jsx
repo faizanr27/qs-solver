@@ -20,9 +20,9 @@ const FileUpload = ({ onFileUpload }) => {
           </p>
           <p className="text-xs text-gray-400">PDF, DOC, JPG or DOCX (MAX. 10MB)</p>
         </div>
-        <input 
-          type="file" 
-          className="hidden" 
+        <input
+          type="file"
+          className="hidden"
           accept=".pdf,.doc,.docx"
           onChange={handleChange}
           maxSize={10485760} // 10MB
@@ -114,7 +114,7 @@ const App = () => {
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Get instant solutions and explanations for your academic questions using advanced AI technology.
             </p>
-            
+
           </div>
         </div>
       </div>
@@ -171,7 +171,7 @@ const App = () => {
                 description: "High-precision answers verified by advanced AI algorithms."
               }
             ].map((feature, index) => (
-              <div 
+              <div
                 key={index}
                 className="  bg-green-400/10 border border-green-400/20 glass p-8 rounded-2xl slide-up hover-scale"
                 style={{ animationDelay: `${index * 0.2}s` }}
@@ -185,8 +185,8 @@ const App = () => {
         </div>
       </div>
 
-     
-     
+
+
 
       {/* Footer */}
       <footer className="border-t border-gray-800 py-8">
