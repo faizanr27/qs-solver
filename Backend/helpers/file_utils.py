@@ -14,8 +14,20 @@ def save_output_to_pdf(text, output_path):
         pdf.add_page()
 
         # Get absolute path of the font file
-        font_path = os.path.abspath("/home/faizan-raza/Documents/qs-solver/Backend/fonts/DejaVuSans.ttf")
-        print(type(font_path))
+        # font_path = os.path.abspath("/home/faizan-raza/Documents/qs-solver/Backend/fonts/DejaVuSans.ttf")
+        # print(type(font_path))
+        # current_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Construct the font path relative to the script's directory
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Navigate up one directory level to the "Backend" folder
+        backend_dir = os.path.dirname(current_dir)
+
+        # Construct the font path relative to the "Backend" directory
+        font_path = os.path.join(backend_dir, "fonts", "DejaVuSans.ttf")
+        print(f"Font Path: {font_path}")
+        print(f"Type of font_path: {type(font_path)}")
 
         if not os.path.exists(font_path):
             raise FileNotFoundError(f"Font file not found: {font_path}")
